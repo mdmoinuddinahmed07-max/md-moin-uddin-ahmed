@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 import { ArrowRight, ExternalLink, Github } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer, ProjectCard } from "@/components/site/Shared";
@@ -7,9 +8,8 @@ import { projectQuery, settingsQuery, SITE_URL } from "@/lib/content";
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: async ({ context, params }) => {
-    const [d] = await Promise.all([context.queryClient.ensureQueryData(projectQuery(params.slug)), context.queryClient.ensureQueryData(settingsQuery)]);
-    if (!d.project) throw notFound();
-    return d;
+    await Promise.all([context.queryClient.ensureQueryData(projectQuery(params.slug)), context.queryClient.ensureQueryData(settingsQuery)]);
+    if (!context.queryClient.getQueryData(projectQuery(params.slug).queryKey)?.project) throw notFound();
   },
   head: ({ loaderData, params }) => {
     const p = loaderData?.project;
@@ -35,10 +35,11 @@ export const Route = createFileRoute("/projects/$slug")({
     </div>
   ),
   errorComponent: () => <p className="p-20 text-center text-muted-foreground">This project could not load.</p>,
+  notFoundComponent: () => <div className="grid min-h-screen place-items-center text-center"><div><h1 className="text-3xl font-bold">Project not found</h1><Link to="/projects" className="mt-4 inline-block text-primary">Back to projects</Link></div></div>,
   component: ProjectPage,
 });
 
-function Block({ title, children }: { title: string; children: React.ReactNode }) {
+function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="border-t border-border py-10">
       <h2 className="mb-4 text-xl font-semibold">{title}</h2>
@@ -51,7 +52,8 @@ function ProjectPage() {
   const { slug } = Route.useParams();
   const { data } = useSuspenseQuery(projectQuery(slug));
   const { data: s } = useSuspenseQuery(settingsQuery);
-  const p = data.project!;
+  const p = data.project;
+  if (!p) return <p className="p-20 text-center text-muted-foreground">Project not found.</p>;
   return (
     <>
       <Navbar />

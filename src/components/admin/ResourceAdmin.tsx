@@ -85,6 +85,7 @@ export function ResourceAdmin({
     const j = i + dir;
     if (j < 0 || j >= list.length) return;
     const a = list[i], b = list[j];
+    if (!a || !b) return;
     await Promise.all([
       supabase.from(table).update({ sort_order: j } as never).eq("id", a.id),
       supabase.from(table).update({ sort_order: i } as never).eq("id", b.id),
@@ -135,9 +136,9 @@ export function ResourceAdmin({
                     <button aria-label="Move down" onClick={() => move(rows, i, 1)} className="text-muted-foreground hover:text-foreground"><ArrowDown size={14} /></button>
                   </div></td>
                   {columns.map((c) => <td key={c.label} className="p-3">{c.render(r)}</td>)}
-                  <td className="p-3"><Switch checked={r.published} onCheckedChange={(v) => quick.mutate({ id: r.id, patch: { published: v } })} /></td>
+                  <td className="p-3"><Switch checked={!!r["published"]} onCheckedChange={(v) => quick.mutate({ id: r["id"], patch: { published: v } })} /></td>
                   <td className="p-3"><div className="flex justify-end gap-1">
-                    {viewHref?.(r) && <Button size="icon" variant="ghost" asChild><a href={viewHref(r)!} target="_blank" aria-label="View"><Eye /></a></Button>}
+                    {(() => { const href = viewHref?.(r); return href ? <Button size="icon" variant="ghost" asChild><a href={href} target="_blank" aria-label="View"><Eye /></a></Button> : null; })()}
                     <Button size="icon" variant="ghost" aria-label="Edit" onClick={() => setEditing(r)}><Pencil /></Button>
                     <Button size="icon" variant="ghost" aria-label="Delete" onClick={() => setToDelete(r)}><Trash2 className="text-destructive" /></Button>
                   </div></td>
@@ -150,11 +151,11 @@ export function ResourceAdmin({
 
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
         <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
-          <DialogHeader><DialogTitle>{editing?.id ? "Edit" : "Add"} {title.replace(/s$/, "").toLowerCase()}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{editing?.["id"] ? "Edit" : "Add"} {title.replace(/s$/, "").toLowerCase()}</DialogTitle></DialogHeader>
           {editing && (
             <form onSubmit={(e) => { e.preventDefault(); save.mutate(editing); }} className="space-y-4">
               {groups.length > 1 ? (
-                <Tabs defaultValue={groups[0]}>
+                <Tabs defaultValue={groups[0] ?? "Details"}>
                   <TabsList className="flex h-auto flex-wrap">{groups.map((g) => <TabsTrigger key={g} value={g}>{g}</TabsTrigger>)}</TabsList>
                   {groups.map((g) => (
                     <TabsContent key={g} value={g} className="space-y-4 pt-2">
@@ -214,7 +215,7 @@ export function FieldInput({ field, value, onChange }: { field: Field; value: an
       {t === "textarea" ? <Textarea id={id} rows={4} value={value ?? ""} onChange={(e) => onChange(e.target.value)} required={field.required} />
       : t === "select" ? (
         <select id={id} value={value ?? ""} onChange={(e) => onChange(e.target.value)} className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm">
-          {field.options!.map((o) => <option key={o}>{o}</option>)}
+          {(field.options ?? []).map((o) => <option key={o}>{o}</option>)}
         </select>
       ) : t === "tags" ? (
         <Input id={id} value={(value ?? []).join(", ")} onChange={(e) => onChange(e.target.value.split(",").map((s) => s.trim()).filter(Boolean))} placeholder="Comma separated" />
