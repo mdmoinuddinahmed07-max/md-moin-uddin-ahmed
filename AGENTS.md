@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Use TanStack Start file-based routes and shared React components for the public portfolio and protected CMS so route state and UI remain consistent.

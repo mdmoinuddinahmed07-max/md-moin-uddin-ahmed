@@ -1,0 +1,5 @@
+- [x] Build the public portfolio and seed its initial published content.
+- [x] Set up owner-only authentication and secure database access rules.
+- [ ] Finish project, skill, education, about-card, settings, media and message administration.
+- [ ] Add site metadata, sitemap and robots handling.
+- [ ] Validate preview, contact submission, admin access flow and responsive layouts.
