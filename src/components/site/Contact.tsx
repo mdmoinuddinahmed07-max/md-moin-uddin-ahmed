@@ -71,8 +71,8 @@ export function Contact({ s }: { s: Settings | null }) {
             ))}
             <label className="text-sm sm:col-span-2">
               <span className="mb-1.5 block text-muted-foreground">Message *</span>
-              <textarea name="message" rows={5} className={field} aria-invalid={!!errors.message} />
-              {errors.message && <span className="mt-1 block text-xs text-destructive">{errors.message}</span>}
+              <textarea name="message" rows={5} className={field} aria-invalid={!!errors["message"]} />
+              {errors["message"] && <span className="mt-1 block text-xs text-destructive">{errors["message"]}</span>}
             </label>
             <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center">
               <button disabled={state === "loading"} className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-brand px-6 py-3 font-semibold text-primary-foreground shadow-glow disabled:opacity-60">

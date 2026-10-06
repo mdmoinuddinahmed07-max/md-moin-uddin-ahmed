@@ -11,7 +11,7 @@ export function Reveal({ children, className = "", delay = 0 }: { children: Reac
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
+        if (e?.isIntersecting) {
           el.classList.add("is-visible");
           io.disconnect();
         }
@@ -86,7 +86,7 @@ export function SocialLinks({ s }: { s: Settings | null }) {
   return (
     <div className="flex gap-2">
       {links.map(({ url, label, Icon }) => (
-        <a key={label} href={url!} target="_blank" rel="noreferrer" aria-label={label} className="grid h-9 w-9 place-items-center rounded-md border border-border text-muted-foreground hover:border-primary/50 hover:text-primary">
+        <a key={label} href={url ?? undefined} target="_blank" rel="noreferrer" aria-label={label} className="grid h-9 w-9 place-items-center rounded-md border border-border text-muted-foreground hover:border-primary/50 hover:text-primary">
           <Icon size={16} />
         </a>
       ))}
