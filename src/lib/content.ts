@@ -23,34 +23,55 @@ async function must<T>(p: PromiseLike<{ data: T | null; error: unknown }>): Prom
 export const homeQuery = queryOptions({
   queryKey: ["public", "home"],
   queryFn: async () => {
-    const [settings, about, skills, projects, education] = await Promise.all([
-      must(supabase.from("site_settings").select("*").eq("id", 1).maybeSingle()),
-      must(supabase.from("about_cards").select("*").eq("published", true).order("sort_order")),
-      must(supabase.from("skills").select("*").eq("published", true).order("sort_order")),
-      must(supabase.from("projects").select("*").eq("published", true).order("featured", { ascending: false }).order("sort_order")),
-      must(supabase.from("education").select("*").eq("published", true).order("sort_order")),
+    const [sr, ar, kr, pr, er] = await Promise.all([
+      supabase.from("site_settings").select("*").eq("id", 1).maybeSingle(),
+      supabase.from("about_cards").select("*").eq("published", true).order("sort_order"),
+      supabase.from("skills").select("*").eq("published", true).order("sort_order"),
+      supabase.from("projects").select("*").eq("published", true).order("featured", { ascending: false }).order("sort_order"),
+      supabase.from("education").select("*").eq("published", true).order("sort_order"),
     ]);
-    return { settings, about, skills, projects, education };
+    if (sr.error || ar.error || kr.error || pr.error || er.error) throw new Error("Could not load content");
+    return {
+      settings: sr.data as unknown as Settings | null,
+      about: ar.data as unknown as AboutCard[],
+      skills: kr.data as unknown as Skill[],
+      projects: pr.data as unknown as Project[],
+      education: er.data as unknown as Education[],
+    };
   },
 });
 
 export const projectsQuery = queryOptions({
   queryKey: ["public", "projects"],
-  queryFn: () => must(supabase.from("projects").select("*").eq("published", true).order("sort_order")),
+  queryFn: async () => {
+    const { data, error } = await supabase.from("projects").select("*").eq("published", true).order("sort_order");
+    if (error) throw new Error("Could not load projects");
+    return data as unknown as Project[];
+  },
 });
 
 export const settingsQuery = queryOptions({
   queryKey: ["public", "settings"],
-  queryFn: () => must(supabase.from("site_settings").select("*").eq("id", 1).maybeSingle()),
+  queryFn: async () => {
+    const { data, error } = await supabase.from("site_settings").select("*").eq("id", 1).maybeSingle();
+    if (error) throw new Error("Could not load settings");
+    return data as unknown as Settings | null;
+  },
 });
 
 export const projectQuery = (slug: string) =>
   queryOptions({
     queryKey: ["public", "project", slug],
     queryFn: async () => {
-      const project = await must(supabase.from("projects").select("*").eq("slug", slug).eq("published", true).maybeSingle());
+      const { data, error } = await supabase.from("projects").select("*").eq("slug", slug).eq("published", true).maybeSingle();
+      if (error) throw new Error("Could not load project");
+      const project = data as unknown as Project | null;
       const related = project
-        ? await must(supabase.from("projects").select("*").eq("published", true).neq("id", project.id).order("sort_order").limit(3))
+        ? await (async () => {
+            const { data: rows, error: relatedError } = await supabase.from("projects").select("*").eq("published", true).neq("id", project.id).order("sort_order").limit(3);
+            if (relatedError) throw new Error("Could not load related projects");
+            return rows as unknown as Project[];
+          })()
         : [];
       return { project, related };
     },
