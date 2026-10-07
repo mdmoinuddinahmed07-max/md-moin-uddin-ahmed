@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, redirect, useNavigate } from "@tanstack/react-router";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { BookOpen, Cog, ExternalLink, FolderKanban, GraduationCap, Image, LayoutDashboard, LogOut, Mail, Menu, Search, User, Wrench } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
