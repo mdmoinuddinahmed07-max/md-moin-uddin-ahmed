@@ -10,12 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteRouteImport } from './routes/admin.route'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAboutRouteImport } from './routes/admin.about'
 import { Route as AdminEducationRouteImport } from './routes/admin.education'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminSeoRouteImport } from './routes/admin.seo'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminSkillsRouteImport } from './routes/admin.skills'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
@@ -26,7 +29,7 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRouteRoute = AdminRouteRouteImport.update({
+const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => rootRouteImport,
@@ -34,32 +37,47 @@ const AdminRouteRoute = AdminRouteRouteImport.update({
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AdminRouteRoute,
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminAboutRoute = AdminAboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => AdminRouteRoute,
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminEducationRoute = AdminEducationRouteImport.update({
   id: '/education',
   path: '/education',
-  getParentRoute: () => AdminRouteRoute,
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminMessagesRoute = AdminMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
-  getParentRoute: () => AdminRouteRoute,
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProfileRoute = AdminProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminProjectsRoute = AdminProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
-  getParentRoute: () => AdminRouteRoute,
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSeoRoute = AdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminSkillsRoute = AdminSkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
-  getParentRoute: () => AdminRouteRoute,
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin_/login',
@@ -79,11 +97,14 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/admin/about': typeof AdminAboutRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/projects': typeof AdminProjectsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/skills': typeof AdminSkillsRoute
   '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -95,7 +116,10 @@ export interface FileRoutesByTo {
   '/admin/about': typeof AdminAboutRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/projects': typeof AdminProjectsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/skills': typeof AdminSkillsRoute
   '/admin/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -105,11 +129,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRouteRouteWithChildren
+  '/admin': typeof AdminRouteWithChildren
   '/admin/about': typeof AdminAboutRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/profile': typeof AdminProfileRoute
   '/admin/projects': typeof AdminProjectsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/admin/skills': typeof AdminSkillsRoute
   '/admin_/login': typeof AdminLoginRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -124,7 +151,10 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/education'
     | '/admin/messages'
+    | '/admin/profile'
     | '/admin/projects'
+    | '/admin/seo'
+    | '/admin/settings'
     | '/admin/skills'
     | '/admin/login'
     | '/projects/$slug'
@@ -136,7 +166,10 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/education'
     | '/admin/messages'
+    | '/admin/profile'
     | '/admin/projects'
+    | '/admin/seo'
+    | '/admin/settings'
     | '/admin/skills'
     | '/admin/login'
     | '/projects/$slug'
@@ -149,7 +182,10 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/education'
     | '/admin/messages'
+    | '/admin/profile'
     | '/admin/projects'
+    | '/admin/seo'
+    | '/admin/settings'
     | '/admin/skills'
     | '/admin_/login'
     | '/projects/$slug'
@@ -159,7 +195,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRouteRoute: typeof AdminRouteRouteWithChildren
+  AdminRoute: typeof AdminRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -178,7 +214,7 @@ declare module '@tanstack/react-router' {
       id: '/admin'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteRouteImport
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -186,42 +222,63 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRouteRoute
+      parentRoute: typeof AdminRoute
     }
     '/admin/about': {
       id: '/admin/about'
       path: '/about'
       fullPath: '/admin/about'
       preLoaderRoute: typeof AdminAboutRouteImport
-      parentRoute: typeof AdminRouteRoute
+      parentRoute: typeof AdminRoute
     }
     '/admin/education': {
       id: '/admin/education'
       path: '/education'
       fullPath: '/admin/education'
       preLoaderRoute: typeof AdminEducationRouteImport
-      parentRoute: typeof AdminRouteRoute
+      parentRoute: typeof AdminRoute
     }
     '/admin/messages': {
       id: '/admin/messages'
       path: '/messages'
       fullPath: '/admin/messages'
       preLoaderRoute: typeof AdminMessagesRouteImport
-      parentRoute: typeof AdminRouteRoute
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/profile': {
+      id: '/admin/profile'
+      path: '/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AdminProfileRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/projects': {
       id: '/admin/projects'
       path: '/projects'
       fullPath: '/admin/projects'
       preLoaderRoute: typeof AdminProjectsRouteImport
-      parentRoute: typeof AdminRouteRoute
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/seo': {
+      id: '/admin/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AdminSeoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/skills': {
       id: '/admin/skills'
       path: '/skills'
       fullPath: '/admin/skills'
       preLoaderRoute: typeof AdminSkillsRouteImport
-      parentRoute: typeof AdminRouteRoute
+      parentRoute: typeof AdminRoute
     }
     '/admin_/login': {
       id: '/admin_/login'
@@ -247,31 +304,35 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AdminRouteRouteChildren {
+interface AdminRouteChildren {
   AdminAboutRoute: typeof AdminAboutRoute
   AdminEducationRoute: typeof AdminEducationRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminProfileRoute: typeof AdminProfileRoute
   AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminSeoRoute: typeof AdminSeoRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminSkillsRoute: typeof AdminSkillsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
-const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+const AdminRouteChildren: AdminRouteChildren = {
   AdminAboutRoute: AdminAboutRoute,
   AdminEducationRoute: AdminEducationRoute,
   AdminMessagesRoute: AdminMessagesRoute,
+  AdminProfileRoute: AdminProfileRoute,
   AdminProjectsRoute: AdminProjectsRoute,
+  AdminSeoRoute: AdminSeoRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminSkillsRoute: AdminSkillsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
-const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
-  AdminRouteRouteChildren,
-)
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRouteRoute: AdminRouteRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
