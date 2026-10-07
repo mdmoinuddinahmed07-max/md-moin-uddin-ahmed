@@ -21,7 +21,7 @@ export function Contact({ s }: { s: Settings | null }) {
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (state === "loading") return;
+    if (state === "loading" || state === "success") return;
     const form = e.currentTarget;
     const parsed = schema.safeParse(Object.fromEntries(new FormData(form)));
     if (!parsed.success) {
@@ -56,7 +56,7 @@ export function Contact({ s }: { s: Settings | null }) {
           </ul>
         </div>
         <Reveal>
-          <form onSubmit={submit} noValidate className="grid gap-4 rounded-2xl border border-border bg-card p-6 shadow-card sm:grid-cols-2 sm:p-8">
+          <form onSubmit={submit} onChange={() => { if (state === "success") setState("idle"); }} noValidate className="grid gap-4 rounded-2xl border border-border bg-card p-6 shadow-card sm:grid-cols-2 sm:p-8">
             {[
               { n: "name", l: "Name *", t: "text", ac: "name" },
               { n: "email", l: "Email *", t: "email", ac: "email" },
@@ -75,7 +75,7 @@ export function Contact({ s }: { s: Settings | null }) {
               {errors["message"] && <span className="mt-1 block text-xs text-destructive">{errors["message"]}</span>}
             </label>
             <div className="flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center">
-              <button disabled={state === "loading"} className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-brand px-6 py-3 font-semibold text-primary-foreground shadow-glow disabled:opacity-60">
+              <button disabled={state === "loading" || state === "success"} className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-brand px-6 py-3 font-semibold text-primary-foreground shadow-glow disabled:opacity-60">
                 {state === "loading" && <Loader2 size={16} className="animate-spin" />} Send Message
               </button>
               <p role="status" className="text-sm">
