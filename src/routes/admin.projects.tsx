@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { ResourceAdmin, type Column, type Field } from "@/components/admin/ResourceAdmin";
 import { slugify, PROJECT_CATEGORIES } from "@/lib/content";
 
@@ -38,5 +38,5 @@ const columns: Column[] = [
 ];
 
 function ProjectsAdmin() {
-  return <ResourceAdmin table="projects" title="Projects" fields={fields} columns={columns} defaults={{ title: "", slug: "", category: "AI & Automation", description: "", short_description: "", long_description: "", technologies: [], features: [], gallery: [], featured: false, published: false, sort_order: 0 }} searchKeys={["title", "category", "slug", "short_description", "technologies"]} filters={[{ key: "category", label: "Category", options: PROJECT_CATEGORIES }, { key: "published", label: "Published", options: ["true", "false"] }, { key: "featured", label: "Featured", options: ["true", "false"] }]} beforeSave={(v) => ({ ...v, slug: v.slug?.trim() || slugify(v.title ?? "") })} viewHref={(r) => r["published"] ? `/projects/${r["slug"]}` : null} />;
+  return <ResourceAdmin table="projects" title="Projects" fields={fields} columns={columns} defaults={{ title: "", slug: "", category: "AI & Automation", description: "", short_description: "", long_description: "", technologies: [], features: [], gallery: [], featured: false, published: false, sort_order: 0 }} searchKeys={["title", "category", "slug", "short_description", "technologies"]} filters={[{ key: "category", label: "Category", options: PROJECT_CATEGORIES }, { key: "published", label: "Published", options: ["true", "false"] }, { key: "featured", label: "Featured", options: ["true", "false"] }]} beforeSave={(v) => ({ ...v, slug: v["slug"]?.trim() || slugify(v["title"] ?? "") })} viewHref={(r) => r["published"] ? `/projects/${r["slug"]}` : null} />;
 }
