@@ -13,8 +13,8 @@ export const Route = createFileRoute("/projects/$slug")({
   },
   head: ({ loaderData, params }) => {
     const p = loaderData?.project;
-    const title = p ? `${p.seo_title || p.title} — MD Moin Uddin Ahmed` : "Project";
-    const desc = p?.seo_description || p?.short_description || "";
+    const title = p ? `${p.seo_title || p.title} — MD Moin Uddin Ahmed` : "Project unavailable — MD Moin Uddin Ahmed";
+    const desc = p?.seo_description || p?.short_description || "Explore projects by MD Moin Uddin Ahmed.";
     const img = p?.cover_image?.startsWith("http") ? p.cover_image : null;
     return {
       meta: [
@@ -24,6 +24,7 @@ export const Route = createFileRoute("/projects/$slug")({
         { property: "og:description", content: desc },
         { property: "og:type", content: "article" },
         { name: "twitter:card", content: "summary_large_image" },
+        ...(!p ? [{ name: "robots", content: "noindex" }] : []),
         ...(img ? [{ property: "og:image", content: img }, { name: "twitter:image", content: img }] : []),
       ],
       links: [{ rel: "canonical", href: `${SITE_URL}/projects/${params.slug}` }],
@@ -35,7 +36,6 @@ export const Route = createFileRoute("/projects/$slug")({
     </div>
   ),
   errorComponent: () => <p className="p-20 text-center text-muted-foreground">This project could not load.</p>,
-  notFoundComponent: () => <div className="grid min-h-screen place-items-center text-center"><div><h1 className="text-3xl font-bold">Project not found</h1><Link to="/projects" className="mt-4 inline-block text-primary">Back to projects</Link></div></div>,
   component: ProjectPage,
 });
 

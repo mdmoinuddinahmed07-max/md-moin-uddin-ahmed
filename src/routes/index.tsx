@@ -12,12 +12,12 @@ const DESC = "Official portfolio of MD Moin Uddin Ahmed, a BCA student in Hydera
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(homeQuery),
-  head: () => ({
+  head: ({ loaderData }) => ({
     meta: [
       { title: TITLE },
-      { name: "description", content: DESC },
-      { property: "og:title", content: "MD Moin Uddin Ahmed" },
-      { property: "og:description", content: "AI & Automation | Web Development" },
+      { name: "description", content: loaderData?.settings?.seo_description || DESC },
+      { property: "og:title", content: loaderData?.settings?.seo_title || "MD Moin Uddin Ahmed" },
+      { property: "og:description", content: loaderData?.settings?.seo_description || "AI & Automation | Web Development" },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
