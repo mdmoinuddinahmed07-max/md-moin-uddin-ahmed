@@ -10,8 +10,9 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ConfirmDelete } from "@/components/admin/ResourceAdmin";
 import { Trash2 } from "lucide-react";
+import { routeMeta } from "@/lib/route-meta";
 
-export const Route = createFileRoute("/admin/messages")({ head: () => ({ meta: [{ title: "Messages — MD Moin Uddin Ahmed" }, { name: "robots", content: "noindex" }] }), component: MessagesAdmin });
+export const Route = createFileRoute("/admin/messages")({ head: () => routeMeta("Messages — MD Moin Uddin Ahmed", "Review and manage messages submitted through the portfolio."), component: MessagesAdmin });
 
 function MessagesAdmin() {
   const qc = useQueryClient();

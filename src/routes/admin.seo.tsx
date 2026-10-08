@@ -10,9 +10,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageTitle } from "@/components/admin/ResourceAdmin";
 import { Loader2 } from "lucide-react";
+import { routeMeta } from "@/lib/route-meta";
 
 export const Route = createFileRoute("/admin/seo")({
-  head: () => ({ meta: [{ title: "SEO settings — MD Moin Uddin Ahmed" }, { name: "description", content: "Manage portfolio search and sharing metadata." }, { property: "og:title", content: "SEO settings" }, { property: "og:description", content: "Manage portfolio search and sharing metadata." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" }] }),
+  head: () => routeMeta("SEO settings — MD Moin Uddin Ahmed", "Manage portfolio search and social-sharing metadata."),
   component: SeoAdmin,
 });
 

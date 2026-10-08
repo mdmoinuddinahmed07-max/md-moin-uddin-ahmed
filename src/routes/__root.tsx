@@ -93,7 +93,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function Analytics() {
   const { data } = useQuery(settingsQuery);
-  const id = data?.analytics_id?.trim();
+  const id = (data as unknown as { analytics_id?: string } | null)?.analytics_id?.trim();
   useEffect(() => {
     if (!id || !/^G-[A-Z0-9]+$/i.test(id) || document.getElementById("ga-src")) return;
     const s = document.createElement("script");

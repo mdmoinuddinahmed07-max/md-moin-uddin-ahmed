@@ -10,9 +10,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PageTitle } from "@/components/admin/ResourceAdmin";
 import { Loader2 } from "lucide-react";
+import { routeMeta } from "@/lib/route-meta";
 
 export const Route = createFileRoute("/admin/profile")({
-  head: () => ({ meta: [{ title: "Profile — MD Moin Uddin Ahmed" }, { name: "description", content: "Manage public portfolio profile information." }, { property: "og:title", content: "Profile settings" }, { property: "og:description", content: "Manage public portfolio profile information." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" }] }),
+  head: () => routeMeta("Profile — MD Moin Uddin Ahmed", "Manage public portfolio profile information."),
   component: ProfileAdmin,
 });
 
@@ -27,6 +28,7 @@ function ProfileAdmin() {
         full_name: values.full_name ?? "", headline: values.headline ?? "", hero_description: values.hero_description ?? "",
         about_summary: values.about_summary ?? "", location: values.location ?? "", email: values.email ?? "", phone: values.phone ?? "",
         linkedin_url: values.linkedin_url || null, github_url: values.github_url || null, youtube_url: values.youtube_url || null, instagram_url: values.instagram_url || null,
+        portrait_url: values.portrait_url || null,
       }).eq("id", 1);
       if (error) throw new Error("Could not save profile changes.");
     },
@@ -40,7 +42,7 @@ function ProfileAdmin() {
     {isLoading ? <p className="text-muted-foreground">Loading profile…</p> : error ? <p role="alert" className="text-destructive">Could not load profile.</p> : <form onSubmit={(e) => { e.preventDefault(); save.mutate(); }} className="max-w-3xl space-y-6">
       <section className="grid gap-4 sm:grid-cols-2"><h2 className="sm:col-span-2 text-lg font-semibold">Identity</h2>{input("full_name", "Full name")}{input("headline", "Professional headline")}{input("location", "Location")}{input("email", "Public email", "email")}{input("phone", "Public phone", "tel")}</section>
       <section className="space-y-4"><h2 className="text-lg font-semibold">Introduction</h2><div className="space-y-2"><Label htmlFor="hero_description">Hero description</Label><Textarea id="hero_description" rows={3} value={String(values.hero_description ?? "")} onChange={(e) => set("hero_description", e.target.value)} /></div><div className="space-y-2"><Label htmlFor="about_summary">About summary</Label><Textarea id="about_summary" rows={5} value={String(values.about_summary ?? "")} onChange={(e) => set("about_summary", e.target.value)} /></div></section>
-      <section className="grid gap-4 sm:grid-cols-2"><h2 className="sm:col-span-2 text-lg font-semibold">Social links</h2>{input("linkedin_url", "LinkedIn URL", "url")}{input("github_url", "GitHub URL", "url")}{input("youtube_url", "YouTube URL", "url")}{input("instagram_url", "Instagram URL", "url")}</section>
+      <section className="grid gap-4 sm:grid-cols-2"><h2 className="sm:col-span-2 text-lg font-semibold">Social links</h2>{input("linkedin_url", "LinkedIn URL", "url")}{input("github_url", "GitHub URL", "url")}{input("youtube_url", "YouTube URL", "url")}{input("instagram_url", "Instagram URL", "url")}{input("portrait_url", "Portrait image URL", "url")}</section>
       <Button disabled={save.isPending}>{save.isPending && <Loader2 className="animate-spin" />} Save profile</Button>
     </form>}
   </>;
