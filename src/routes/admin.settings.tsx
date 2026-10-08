@@ -10,9 +10,10 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { PageTitle } from "@/components/admin/ResourceAdmin";
 import { Loader2 } from "lucide-react";
+import { routeMeta } from "@/lib/route-meta";
 
 export const Route = createFileRoute("/admin/settings")({
-  head: () => ({ meta: [{ title: "Site settings — MD Moin Uddin Ahmed" }, { name: "description", content: "Manage portfolio display and analytics settings." }, { property: "og:title", content: "Portfolio site settings" }, { property: "og:description", content: "Manage portfolio display and analytics settings." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" }, { name: "robots", content: "noindex" }] }),
+  head: () => routeMeta("Site settings — MD Moin Uddin Ahmed", "Manage portfolio display, languages, and analytics settings."),
   component: SettingsAdmin,
 });
 

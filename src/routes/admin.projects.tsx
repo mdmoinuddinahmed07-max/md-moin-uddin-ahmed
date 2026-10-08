@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ResourceAdmin, type Column, type Field } from "@/components/admin/ResourceAdmin";
 import { slugify, PROJECT_CATEGORIES } from "@/lib/content";
+import { routeMeta } from "@/lib/route-meta";
 
 export const Route = createFileRoute("/admin/projects")({
-  head: () => ({ meta: [{ title: "Projects CMS — MD Moin Uddin Ahmed" }, { name: "robots", content: "noindex" }] }),
+  head: () => routeMeta("Projects CMS — MD Moin Uddin Ahmed", "Create and update portfolio projects."),
   component: ProjectsAdmin,
 });
 

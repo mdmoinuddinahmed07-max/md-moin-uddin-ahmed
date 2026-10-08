@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ResourceAdmin, type Column, type Field } from "@/components/admin/ResourceAdmin";
+import { routeMeta } from "@/lib/route-meta";
 
-export const Route = createFileRoute("/admin/education")({ head: () => ({ meta: [{ title: "Education CMS — MD Moin Uddin Ahmed" }, { name: "robots", content: "noindex" }] }), component: EducationAdmin });
+export const Route = createFileRoute("/admin/education")({ head: () => routeMeta("Education CMS — MD Moin Uddin Ahmed", "Manage portfolio education and certifications."), component: EducationAdmin });
 const fields: Field[] = [
   { key: "degree", label: "Degree / certificate", required: true },
   { key: "institution", label: "Institution", required: true },

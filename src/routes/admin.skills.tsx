@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ResourceAdmin, type Column, type Field } from "@/components/admin/ResourceAdmin";
 import { SKILL_CATEGORIES } from "@/lib/content";
+import { routeMeta } from "@/lib/route-meta";
 
-export const Route = createFileRoute("/admin/skills")({ head: () => ({ meta: [{ title: "Skills CMS — MD Moin Uddin Ahmed" }, { name: "robots", content: "noindex" }] }), component: SkillsAdmin });
+export const Route = createFileRoute("/admin/skills")({ head: () => routeMeta("Skills CMS — MD Moin Uddin Ahmed", "Manage portfolio skills and categories."), component: SkillsAdmin });
 const fields: Field[] = [
   { key: "name", label: "Name", required: true },
   { key: "category", label: "Category", type: "select", options: SKILL_CATEGORIES, required: true },
