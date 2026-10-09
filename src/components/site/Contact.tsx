@@ -31,12 +31,19 @@ export function Contact({ s }: { s: Settings | null }) {
     setErrors({});
     setState("loading");
     const d = parsed.data;
-    const { error } = await supabase.from("contact_messages").insert({
-      name: d.name, email: d.email, phone: d.phone || null, subject: d.subject || null, message: d.message,
-    });
-    if (error) return setState("error");
-    form.reset();
-    setState("success");
+    try {
+      const { error } = await supabase.from("contact_messages").insert({
+        name: d.name, email: d.email, phone: d.phone || null, subject: d.subject || null, message: d.message,
+      });
+      if (error) {
+        setState("error");
+        return;
+      }
+      form.reset();
+      setState("success");
+    } catch {
+      setState("error");
+    }
   }
 
   return (
