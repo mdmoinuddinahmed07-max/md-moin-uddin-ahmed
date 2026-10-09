@@ -8,8 +8,7 @@ import { projectQuery, settingsQuery, SITE_URL } from "@/lib/content";
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: async ({ context, params }) => {
-    await Promise.all([context.queryClient.ensureQueryData(projectQuery(params.slug)), context.queryClient.ensureQueryData(settingsQuery)]);
-    const data = context.queryClient.getQueryData(projectQuery(params.slug).queryKey);
+    const [data] = await Promise.all([context.queryClient.ensureQueryData(projectQuery(params.slug)), context.queryClient.ensureQueryData(settingsQuery)]);
     if (!data?.project) throw notFound();
     return data;
   },
