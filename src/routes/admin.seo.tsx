@@ -38,7 +38,7 @@ function SeoAdmin() {
       <div className="space-y-2"><Label htmlFor="seo_title">Page title</Label><Input id="seo_title" value={String(values["seo_title"] ?? "")} maxLength={70} onChange={(e) => set("seo_title", e.target.value)} />{String(values["seo_title"] ?? "").length > 60 && <p className="text-xs text-muted-foreground">Search titles are usually clearest under 60 characters.</p>}</div>
       <div className="space-y-2"><Label htmlFor="seo_description">Description</Label><Textarea id="seo_description" rows={4} maxLength={320} value={String(values["seo_description"] ?? "")} onChange={(e) => set("seo_description", e.target.value)} /><p className="text-xs text-muted-foreground">{String(values["seo_description"] ?? "").length} / 320 characters</p></div>
       <div className="space-y-2"><Label htmlFor="og_image_url">Social sharing image URL</Label><Input id="og_image_url" type="url" value={String(values["og_image_url"] ?? "")} onChange={(e) => set("og_image_url", e.target.value)} placeholder="https://…" /></div>
-      {values["og_image_url"] && <img src={String(values["og_image_url"])} alt="Social sharing preview" className="max-h-56 max-w-full rounded-md border border-border object-cover" />}
+      {Boolean(values["og_image_url"]) && <img src={String(values["og_image_url"])} alt="Social sharing preview" className="max-h-56 max-w-full rounded-md border border-border object-cover" />}
       <Button disabled={save.isPending}>{save.isPending && <Loader2 className="animate-spin" />} Save SEO settings</Button>
     </form>}
   </>;
