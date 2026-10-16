@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, KeyRound, Loader2, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Loader2, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/admin_/login")({
 
 function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState(ADMIN_EMAIL);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -33,13 +33,11 @@ function Login() {
     const trimmedEmail = email.trim().toLowerCase();
     setBusy(true);
     try {
-      // Allow direct owner admin credential check + Supabase Auth sign-in
       if (trimmedEmail === ADMIN_EMAIL && password === ADMIN_PASS) {
         localStorage.setItem(
           ADMIN_SESSION_KEY,
           JSON.stringify({ email: ADMIN_EMAIL, loggedInAt: new Date().toISOString() }),
         );
-        // Also attempt Supabase session in background
         await supabase.auth.signInWithPassword({ email: ADMIN_EMAIL, password: ADMIN_PASS }).catch(() => {});
         toast.success("Welcome back, Moin!");
         navigate({ to: "/admin", replace: true });
@@ -87,6 +85,7 @@ function Login() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter admin email"
               required
               autoComplete="email"
             />
@@ -110,25 +109,6 @@ function Login() {
             {busy && <Loader2 className="mr-2 animate-spin" size={16} />}
             Sign In to Admin Panel
           </Button>
-
-          <div className="rounded-lg border border-border bg-background/60 p-3 text-xs text-muted-foreground">
-            <div className="flex items-center justify-between">
-              <span className="font-medium text-foreground">Quick Fill Owner Credentials</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail(ADMIN_EMAIL);
-                  setPassword(ADMIN_PASS);
-                }}
-                className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
-              >
-                <KeyRound size={12} /> Auto-fill
-              </button>
-            </div>
-            <p className="mt-1 font-mono text-[11px]">
-              Email: {ADMIN_EMAIL} | Pass: {ADMIN_PASS}
-            </p>
-          </div>
         </form>
       </div>
     </div>
