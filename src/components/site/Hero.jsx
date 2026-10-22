@@ -27,9 +27,9 @@ export function Hero({ s }) {
             Hello, I'm <span className="h-px w-8 bg-primary"/>
           </p>
           <h1 className="text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl xl:text-7xl">
-            <span className="sr-only">MD Moin Uddin Ahmed — AI & Automation | Web Development</span>
+            <span className="sr-only">Mohammed Moinuddin Ahmed — AI & Automation | Web Development</span>
             <span aria-hidden>
-              Md Moin Uddin <span className="text-gradient">Ahmed</span>
+              Mohammed Moinuddin <span className="text-gradient">Ahmed</span>
             </span>
           </h1>
           <p className="mt-6 text-lg font-semibold sm:text-xl">{s?.headline}</p>

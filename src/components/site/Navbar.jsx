@@ -32,7 +32,7 @@ export function Navbar() {
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Main">
         <Link to="/" className="flex items-center gap-2.5 text-sm font-bold tracking-wide">
           <span className="grid h-8 w-8 place-items-center rounded-md bg-gradient-brand font-mono text-[11px] text-primary-foreground">MMA</span>
-          <span className="hidden sm:inline">MD MOIN UDDIN AHMED</span>
+          <span className="hidden sm:inline">MOHAMMED MOINUDDIN AHMED</span>
           <span className="sm:hidden">MOIN</span>
         </Link>
         <ul className="hidden items-center gap-7 lg:flex">

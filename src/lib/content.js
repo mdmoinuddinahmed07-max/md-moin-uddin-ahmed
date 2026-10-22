@@ -16,7 +16,7 @@ const CATEGORY_COVERS = {
 };
 const FALLBACK_SETTINGS = {
     id: 1,
-    full_name: "MD MOIN UDDIN AHMED",
+    full_name: "MOHAMMED MOINUDDIN AHMED",
     headline: "BCA Student | AI & Automation | Web Development",
     hero_description: "I build digital experiences, automation workflows, and AI-powered solutions that turn ideas into practical business solutions.",
     about_summary: "BCA student interested in AI development, workflow automation, and modern web development. Exploring AI agents, n8n, API integrations, responsive website design, and AI-powered creative content. Focused on applying emerging technologies to practical business problems and continuously improving through hands-on projects.",
@@ -30,8 +30,8 @@ const FALLBACK_SETTINGS = {
     github_url: null,
     youtube_url: null,
     instagram_url: null,
-    seo_title: "MD Moin Uddin Ahmed — AI & Automation | Web Development",
-    seo_description: "Official portfolio of MD Moin Uddin Ahmed, a BCA student in Hyderabad building practical digital solutions with AI, automation, and modern web technology.",
+    seo_title: "Mohammed Moinuddin Ahmed — AI & Automation | Web Development",
+    seo_description: "Official portfolio of Mohammed Moinuddin Ahmed, a BCA student in Hyderabad building practical digital solutions with AI, automation, and modern web technology.",
     og_image_url: null,
     analytics_id: null,
     available_for_projects: true,

@@ -6,15 +6,15 @@ import { About, AutomationFlow, EducationTimeline, Projects, Skills } from "@/co
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Shared";
 import { homeQuery, SITE_URL } from "@/lib/content";
-const TITLE = "MD Moin Uddin Ahmed — AI & Automation | Web Development";
-const DESC = "Official portfolio of MD Moin Uddin Ahmed, a BCA student in Hyderabad building practical digital solutions with AI, automation, and modern web technology.";
+const TITLE = "Mohammed Moinuddin Ahmed — AI & Automation | Web Development";
+const DESC = "Official portfolio of Mohammed Moinuddin Ahmed, a BCA student in Hyderabad building practical digital solutions with AI, automation, and modern web technology.";
 export const Route = createFileRoute("/")({
     loader: ({ context }) => context.queryClient.ensureQueryData(homeQuery),
     head: () => ({
         meta: [
             { title: TITLE },
             { name: "description", content: DESC },
-            { property: "og:title", content: "MD Moin Uddin Ahmed" },
+            { property: "og:title", content: "Mohammed Moinuddin Ahmed" },
             { property: "og:description", content: "AI & Automation | Web Development" },
             { property: "og:type", content: "profile" },
             { name: "twitter:card", content: "summary_large_image" },
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
                 children: JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "Person",
-                    name: "MD Moin Uddin Ahmed",
+                    name: "Mohammed Moinuddin Ahmed",
                     jobTitle: "BCA Student | AI & Automation | Web Development",
                     email: "mailto:mdmoinuddinahmed07@gmail.com",
                     address: { "@type": "PostalAddress", addressLocality: "Hyderabad", addressCountry: "IN" },

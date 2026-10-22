@@ -98,7 +98,7 @@ export function Footer({ s }) {
     <footer className="border-t border-border bg-surface">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-3 lg:px-8">
         <div>
-          <p className="font-bold tracking-wide">{s?.full_name ?? "MD MOIN UDDIN AHMED"}</p>
+          <p className="font-bold tracking-wide">{s?.full_name ?? "MOHAMMED MOINUDDIN AHMED"}</p>
           <p className="mt-2 text-sm text-muted-foreground">{s?.headline}</p>
           <p className="mt-1 text-sm text-muted-foreground">{s?.location}</p>
         </div>
@@ -126,7 +126,7 @@ export function Footer({ s }) {
         </div>
       </div>
       <p className="border-t border-border py-6 text-center text-xs text-muted-foreground">
-        © {new Date().getFullYear()} MD Moin Uddin Ahmed. All rights reserved.
+        © {new Date().getFullYear()} Mohammed Moinuddin Ahmed. All rights reserved.
       </p>
     </footer>
   );
